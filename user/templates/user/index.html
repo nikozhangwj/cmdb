@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>用户管理</title>
+    {% load staticfiles %}
+    <!--
+    <link rel="stylesheet" type="text/css" href="{% static 'user/index.css' %}"></link>
+    -->
+</head>
+<body>
+    <!--服务器时间:{{ curr_time }}-->
+    当前时间:<span id='time'></span><br/>
+    当前登陆用户是:{{ request.session.user.name }}
+    <a href="/user/logout">退出登录</a>
+    <br/>
+    <!--<a href="/user/create">留言</a>-->
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>联系方式</th>
+            <th>操作方式</th>
+        </tr>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.0 }}</td>
+                <td>{{ user.1.name }}</td>
+                <td>{{ user.1.age }}</td>
+                <td>
+                    {% if user.1.sex == 0 %}
+                        女
+                    {% else %}
+                        男
+                    {% endif %}
+                </td>
+                <td>{{ user.1.tel }}</td>
+                
+                <td><a href="">修改&nbsp;</a><a href="">&nbsp;删除</a></td>
+                
+            </tr>
+        {% endfor %}
+    </table>
+    <a href="">添加用户</a>
+    <script type="text/javascript" src="{% static 'user/index.js' %}"></script>
+</body>
+</html>
