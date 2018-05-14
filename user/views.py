@@ -11,7 +11,7 @@ def index(request):
     if not request.session.get('user'):
         return redirect('user:login')
     #return HttpResponse(datetime.now().strftime('%Y-%m-%d %H-%M-%S'))
-    return render(request, 'user/index.html', {'curr_time':curr_time,'users':get_user().items()})
+    return render(request, 'user/index.html', {'curr_time':curr_time,'users':get_user()})
 
 
 def login(request):

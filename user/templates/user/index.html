@@ -24,7 +24,7 @@
             <th>联系方式</th>
             <th>操作方式</th>
         </tr>
-        {% for key,user in users %}
+        {% for key,user in users.items %}
             <tr>
                 <td>{{ user.0 }}</td>
                 <td>{{ user.1.name }}</td>
