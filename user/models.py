@@ -18,6 +18,12 @@ def get_user():
     fhandler.close()
     return users
 
+def save_user(users):
+    fhandler = open(path,'wt')
+    user = json.dumps(users)
+    fhandler.write(user)
+    fhandler.close()
+    return True
 
 # 验证登陆信息
 def valid_login(username,password):
@@ -29,5 +35,8 @@ def valid_login(username,password):
     return False
 
 
-def delete_user():
-    pass
+def delete_user(uid):
+    users = get_user()
+    users.pop(uid,None)
+    save_user(users)
+    return True

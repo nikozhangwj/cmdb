@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from datetime import datetime
 # Create your views here.
 
-from .models import get_user, valid_login
+from .models import get_user, valid_login, delete_user
 curr_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 def index(request):
     if not request.session.get('user'):
@@ -41,4 +41,6 @@ def delete(request):
         return redirect('user:login')
 
     uid = request.GET.get('uid')
-    print(uid)
+    if uid.isdigit():
+        delete_user(uid)
+    return redirect('user:index')
