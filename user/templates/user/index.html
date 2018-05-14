@@ -26,17 +26,17 @@
         </tr>
         {% for key,user in users.items %}
             <tr>
-                <td>{{ user.0 }}</td>
-                <td>{{ user.1.name }}</td>
-                <td>{{ user.1.age }}</td>
+                <td>{{ key }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.age }}</td>
                 <td>
-                    {% if user.1.sex == 0 %}
+                    {% if user.sex == 0 %}
                         女
                     {% else %}
                         男
                     {% endif %}
                 </td>
-                <td>{{ user.1.tel }}</td>
+                <td>{{ user.tel }}</td>
 
                 <td>
                     <a href="">修改&nbsp;</a>
