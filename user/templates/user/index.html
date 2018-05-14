@@ -12,6 +12,11 @@
     <!--服务器时间:{{ curr_time }}-->
     当前时间:<span id='time'></span><br/>
     当前登陆用户是:{{ request.session.user.name }}
+    {% if errors %}
+        {% for error in errors %}
+            {{error}}
+        {% endfor %}
+    {% endif %}
     <a href="/user/logout">退出登录</a>
     <br/>
     <!--<a href="/user/create">留言</a>-->
@@ -39,7 +44,7 @@
                 <td>{{ user.tel }}</td>
 
                 <td>
-                    <a href="">修改&nbsp;</a>
+                    <a href="{% url 'user:user_info' %}?uid={{ key }}">修改&nbsp;</a>
                     <a href="{% url 'user:delete' %}?uid={{ key }}">&nbsp;删除</a>
                 </td>
 

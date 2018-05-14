@@ -5,13 +5,13 @@ from django.http import HttpResponse
 from datetime import datetime
 # Create your views here.
 
-from .models import get_user, valid_login, delete_user
+from .models import get_users, get_user, valid_login, delete_user, valid_update_user, update_user
 curr_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 def index(request):
     if not request.session.get('user'):
         return redirect('user:login')
     #return HttpResponse(datetime.now().strftime('%Y-%m-%d %H-%M-%S'))
-    return render(request, 'user/index.html', {'curr_time':curr_time,'users':get_user()})
+    return render(request, 'user/index.html', {'curr_time':curr_time,'users':get_users()})
 
 
 def login(request):
@@ -39,8 +39,32 @@ def user_logout(request):
 def delete(request):
     if not request.session.get('user'):
         return redirect('user:login')
-
     uid = request.GET.get('uid')
-    if uid.isdigit():
-        delete_user(uid)
-    return redirect('user:index')
+    if request.session.get('user')['name'] == 'Admin':
+        if uid.isdigit():
+            delete_user(uid)
+        return redirect('user:index')
+    else:
+        return render(request,'user/index.html',{'errors':'你没有此操作权限', 'curr_time':curr_time, 'users':get_users()})
+
+def user_info(request):
+    if not request.session.get('user'):
+        return redirect('user:login')
+
+    uid = request.GET.get('uid','')
+    if request.session.get('user')['id'] == uid:
+        return render(request,'user/user_info.html',{'user':get_user(uid)})
+    else:
+        return render(request,'user/index.html',{'errors':'你没有此操作权限', 'curr_time':curr_time, 'users':get_users()})
+
+
+
+def update(request):
+    if not request.session.get('user'):
+        return redirect('user:login')
+    user,is_valid,error = valid_update_user(request.POST)
+    if is_valid:
+        update_user(user)
+        return redirect('user:index')
+    else:
+        return render(request,'user/user_info.html',{'user' : user, 'errors' : error})
