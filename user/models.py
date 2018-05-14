@@ -42,14 +42,14 @@ def valid_login(username,password):
             return user
     return False
 
-
+#通过回传的uid删除用户
 def delete_user(uid):
     users = get_users()
     users.pop(uid,None)
     save_user(users)
     return True
 
-
+#update功能预检查数据
 def valid_update_user(params):
     #从参数获取前端数据
     uid = params.get('uid')
@@ -75,6 +75,7 @@ def valid_update_user(params):
         if user['name'] == value.get('name') and uid != key:
             is_valid = False
             error['name'] = '用户名已存在'
+            break
 
     #检查年龄格式是否正确
     user['age'] = age.strip()
@@ -87,9 +88,57 @@ def valid_update_user(params):
 
     return user,is_valid,error
 
-
+#把用户信息update到数据文件中
 def update_user(user):
     users = get_users()
     uid = user.pop('id')
     users[uid].update(user)
+    return save_user(users)
+
+
+#验证创建用户信息
+def valid_create_user(params):
+    name = params.get('username','')
+    age = params.get('age','0')
+    sex = params.get('sex','0')
+    tel = params.get('tel','')
+    password1 = params.get('password1')
+    password2 = params.get('password2')
+    users = get_users()
+    #uid = int(sorted(users.items(),key=lambda x:x[0],reverse=True)[0][0]) + 1
+
+    is_valid = True
+    user = {}
+    error = {}
+
+    user['name'] = name.strip()
+    if user['name'] == '':
+        is_valid = False
+        error['name'] = '名字不能为空'
+    else:
+        for key,value in users.items():
+            if user['name'] == value.get('name'):
+                is_valid = False
+                error['name'] = '用户名已存在'
+                break
+
+    user['age'] = age.strip()
+    if not user['age'].isdigit():
+        is_valid = False
+        error['age'] = '年龄格式错误'
+
+    user['sex'] = sex
+    user['tel'] = tel
+    user['password'] = password1.strip()
+    if user['password'] == '' or user['password'] != password2.strip():
+        is_valid = False
+        error['password'] = '密码不能为空或两次输入不同'
+
+    return is_valid,user,error
+
+
+def create_user(user):
+    users = get_users()
+    uid = max([int(key) for key in users]) + 1
+    users[uid] = user
     return save_user(users)

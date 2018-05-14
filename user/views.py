@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from datetime import datetime
 # Create your views here.
 
-from .models import get_users, get_user, valid_login, delete_user, valid_update_user, update_user
+from .models import get_users, get_user, valid_login, delete_user, valid_update_user, update_user, valid_create_user, create_user
 curr_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 def index(request):
     if not request.session.get('user'):
@@ -52,7 +52,7 @@ def user_info(request):
         return redirect('user:login')
 
     uid = request.GET.get('uid','')
-    if request.session.get('user')['id'] == uid:
+    if request.session.get('user')['id'] == uid or request.session.get('user')['name'] == 'Admin':
         return render(request,'user/user_info.html',{'user':get_user(uid)})
     else:
         return render(request,'user/index.html',{'errors':'你没有此操作权限', 'curr_time':curr_time, 'users':get_users()})
@@ -68,3 +68,17 @@ def update(request):
         return redirect('user:index')
     else:
         return render(request,'user/user_info.html',{'user' : user, 'errors' : error})
+
+
+def create(request):
+    if not request.session.get('user'):
+        return redirect('user:login')
+    if request.session.get('user')['name'] == 'Admin' and 'GET' == request.method:
+        return render(request,'user/create.html')
+    else:
+        is_valid,user,error = valid_create_user(request.POST)
+        if is_valid:
+            create_user(user)
+            return redirect('user:index')
+        else:
+            return render(request,'user/create.html',{'errors':error})
