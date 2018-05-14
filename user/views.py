@@ -73,7 +73,9 @@ def update(request):
 def create(request):
     if not request.session.get('user'):
         return redirect('user:login')
-    if request.session.get('user')['name'] == 'Admin' and 'GET' == request.method:
+    if request.session.get('user')['name'] != 'Admin':
+        return render(request,'user/index.html',{'errors':'你没有此操作权限', 'curr_time':curr_time, 'users':get_users()})
+    if 'GET' == request.method:
         return render(request,'user/create.html')
     else:
         is_valid,user,error = valid_create_user(request.POST)
