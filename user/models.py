@@ -27,3 +27,6 @@ def valid_login(username,password):
             user['id'] = key
             return user
     return False
+
+
+def delete_user():

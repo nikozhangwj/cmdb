@@ -24,7 +24,7 @@
             <th>联系方式</th>
             <th>操作方式</th>
         </tr>
-        {% for user in users %}
+        {% for key,user in users %}
             <tr>
                 <td>{{ user.0 }}</td>
                 <td>{{ user.1.name }}</td>
@@ -37,9 +37,12 @@
                     {% endif %}
                 </td>
                 <td>{{ user.1.tel }}</td>
-                
-                <td><a href="">修改&nbsp;</a><a href="">&nbsp;删除</a></td>
-                
+
+                <td>
+                    <a href="">修改&nbsp;</a>
+                    <a href="{% url 'user:delete' %}?uid={{ key }}">&nbsp;删除</a>
+                </td>
+
             </tr>
         {% endfor %}
     </table>
