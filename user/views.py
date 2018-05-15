@@ -15,6 +15,8 @@ def index(request):
 
 
 def login(request):
+    if request.session.get('user'):
+        return redirect('user:index')
     if 'GET' == request.method:
         return render(request,'user/login.html')
     else:
