@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from datetime import datetime
 # Create your views here.
 
-from .models import get_users, get_user, valid_login, delete_user, valid_update_user, update_user, valid_create_user, create_user
+from .models import get_users, get_user, valid_login, delete_user, valid_update_user, update_user, valid_create_user, create_user, valid_cp, cp
 curr_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 def index(request):
     if not request.session.get('user'):
@@ -86,3 +86,17 @@ def create(request):
             return redirect('user:index')
         else:
             return render(request,'user/create.html',{'errors':error})
+
+
+def change_password(request):
+    if not request.session.get('user'):
+        return redirect('user:login')
+    if 'GET' == request.method:
+        return render(request,'user/change_password.html')
+    else:
+        is_valid,new_password,uid,errors = valid_cp(request.POST,request.session)
+        if is_valid:
+            cp(uid,new_password)
+            return redirect('user:index')
+        else:
+            return render(request,'user/change_password.html',{'errors':errors})

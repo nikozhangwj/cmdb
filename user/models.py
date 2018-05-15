@@ -142,3 +142,35 @@ def create_user(user):
     uid = max([int(key) for key in users]) + 1
     users[uid] = user
     return save_user(users)
+
+
+def valid_cp(params,param):
+    old_password = params.get('old_password')
+    new1_password = params.get('new1_password')
+    new2_password = params.get('new2_password')
+    uid = param.get('user')['id']
+
+    errors = {}
+    is_valid = True
+    users = get_users()
+    user_password = users[uid]['password']
+
+    if old_password.strip() == '':
+        is_valid = False
+        errors['old_password'] = '密码不能为空'
+
+    if old_password.strip() != user_password:
+        is_valid = False
+        errors['old_password'] = '你输入的密码不正确'
+
+    if new1_password.strip() != new2_password.strip() or new1_password.strip() == '':
+        is_valid = False
+        errors['new_password'] = '密码不能为空或两次输入不同'
+
+    return is_valid,new1_password,uid,errors
+
+
+def cp(uid,new_password):
+    users = get_users()
+    users[uid]['password'] = new_password
+    return save_user(users)
