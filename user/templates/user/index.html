@@ -31,9 +31,9 @@
             <th>联系方式</th>
             <th>操作方式</th>
         </tr>
-        {% for key,user in users.items %}
+        {% for user in users %}
             <tr>
-                <td>{{ key }}</td>
+                <td>{{ user.id }}</td>
                 <td>{{ user.name }}</td>
                 <td>{{ user.age }}</td>
                 <td>
@@ -46,8 +46,8 @@
                 <td>{{ user.tel }}</td>
 
                 <td>
-                    <a href="{% url 'user:user_info' %}?uid={{ key }}">修改&nbsp;</a>
-                    <a href="{% url 'user:delete' %}?uid={{ key }}">&nbsp;删除</a>
+                    <a href="{% url 'user:user_info' %}?uid={{ user.id }}">修改&nbsp;</a>
+                    <a href="{% url 'user:delete' %}?uid={{ user.id }}">&nbsp;删除</a>
                 </td>
 
             </tr>

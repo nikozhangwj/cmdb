@@ -4,24 +4,69 @@ import json
 
 from django.db import models
 
+import MySQLdb as mysqldb
+from MySQLdb import cursors
 # Create your models here.
 
 
 # 用户信息文件路径
 path = 'user.data.json'
 
+MYSQL_HOST = "127.0.0.1"
+MYSQL_PORT = 3306
+MYSQL_USER = "root"
+MYSQL_PASSWORD = "dfl^!G321"
+MYSQL_DB = "cmdb_niko"
+MYSQL_CHARSET = "utf8"
+SQL_LOGIN = '''
+                SELECT id,name,age,tel,sex
+                FROM user
+                WHERE name=%s and password=%s LIMIT 1;
+            '''
+
+SQL_LIST = '''
+                SELECT id,name,age,tel,sex
+                FROM user
+            '''
+
+SQL_USER = '''
+                SELECT id,name,age,tel,sex
+                FROM user
+                WHERE id=%s
+            '''
+
+SQL_USER_BY_NAME = '''
+                SELECT id,name,age,tel,sex
+                FROM user
+                WHERE name=%s
+            '''
+SQL_UPDATE_USER = '''
+                UPDATE user SET name=%s,age=%s,tel=%s,sex=%s WHERE id=%s
+            '''
+
+SQL_CREATE_USER = '''
+                INSERT INTO user(name,age,tel,sex,password) VALUES(%s, %s, %s, %s, %s)     
+                '''
 
 # 获取用户信息并序列化
 def get_users():
-    fhandler = open(path,'rt')
-    users = json.loads(fhandler.read())
-    fhandler.close()
+    conn = mysqldb.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD,db=MYSQL_DB,charset=MYSQL_CHARSET)
+    cur = conn.cursor(cursors.DictCursor)
+    cur.execute(SQL_LIST)
+    users = cur.fetchall()
+    #print(users)
+    cur.close()
+    conn.close()
     return users
 
 
 def get_user(uid):
-    user = get_users().get(uid,{})
-    user['id'] = uid
+    conn = mysqldb.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD,db=MYSQL_DB,charset=MYSQL_CHARSET)
+    cur = conn.cursor(cursors.DictCursor)
+    cur.execute(SQL_USER,(str(uid),))
+    user = cur.fetchall()
+    cur.close()
+    conn.close()
     return user
 
 
@@ -35,12 +80,14 @@ def save_user(users):
 
 # 验证登陆信息
 def valid_login(username,password):
-    users = get_users()
-    for key,user in users.items():
-        if username == user['name'] and password == user['password']:
-            user['id'] = key
-            return user
-    return False
+    conn = mysqldb.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD,db=MYSQL_DB,charset=MYSQL_CHARSET)
+    cur = conn.cursor()
+    cur.execute(SQL_LOGIN,(username,password))
+    result = cur.fetchone()
+    cur.close()
+    conn.close()
+    print("login")
+    return {'id':result[0],'name':result[1]} if result else None
 
 #通过回传的uid删除用户
 def delete_user(uid):
@@ -48,6 +95,24 @@ def delete_user(uid):
     users.pop(uid,None)
     save_user(users)
     return True
+
+def get_user_byname(name):
+    conn = mysqldb.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD,db=MYSQL_DB,charset=MYSQL_CHARSET)
+    cur = conn.cursor(cursors.DictCursor)
+    cur.execute(SQL_USER_BY_NAME,(name,))
+    user = cur.fetchall()
+    #print(user)
+    cur.close()
+    conn.close()
+    return user
+
+def vaild_name_unique(name,uid):
+    user = get_user_byname(name)
+    if user is None:
+        return True
+    else:
+        return str(user[0]['id']) == str(uid)
+
 
 #update功能预检查数据
 def valid_update_user(params):
@@ -65,17 +130,16 @@ def valid_update_user(params):
     is_valid = True
     #检查用户是否有效
     user['id'] = uid.strip()
-    if not users.get(user['id']):
+    if get_user(user['id']) is None:
         error['id'] = '用户数据无效'
         is_valid = False
 
     #检查用户名是否存在
     user['name'] = username.strip()
-    for key,value in users.items():
-        if user['name'] == value.get('name') and uid != key:
-            is_valid = False
-            error['name'] = '用户名已存在'
-            break
+    if not vaild_name_unique(user['name'],user['id']):
+        is_valid = False
+        error['name'] = '用户名已存在'
+
 
     #检查年龄格式是否正确
     user['age'] = age.strip()
@@ -85,15 +149,19 @@ def valid_update_user(params):
 
     user['tel'] = tel.strip()
     user['sex'] = int(sex)
-
+    #print(user)
     return user,is_valid,error
 
 #把用户信息update到数据文件中
 def update_user(user):
-    users = get_users()
-    uid = user.pop('id')
-    users[uid].update(user)
-    return save_user(users)
+    #print(user)
+    conn = mysqldb.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD,db=MYSQL_DB,charset=MYSQL_CHARSET)
+    cur = conn.cursor()
+    cur.execute(SQL_UPDATE_USER,(user['name'],user['age'],user['tel'],user['sex'],user['id']))
+    conn.commit()
+    cur.close()
+    conn.close()
+    return True
 
 
 #验证创建用户信息
@@ -116,11 +184,9 @@ def valid_create_user(params):
         is_valid = False
         error['name'] = '名字不能为空'
     else:
-        for key,value in users.items():
-            if user['name'] == value.get('name'):
+        if get_user_byname(user['name']):
                 is_valid = False
                 error['name'] = '用户名已存在'
-                break
 
     user['age'] = age.strip()
     if not user['age'].isdigit():
@@ -138,11 +204,14 @@ def valid_create_user(params):
 
 
 def create_user(user):
-    users = get_users()
-    uid = max([int(key) for key in users]) + 1
-    users[uid] = user
-    return save_user(users)
-
+    print(user)
+    conn = mysqldb.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD,db=MYSQL_DB,charset=MYSQL_CHARSET)
+    cur = conn.cursor()
+    cur.execute(SQL_CREATE_USER,(user['name'],user['age'],user['tel'],user['sex'],user['password']))
+    conn.commit()
+    cur.close()
+    conn.close()
+    return True
 
 def valid_cp(params,param):
     old_password = params.get('old_password')

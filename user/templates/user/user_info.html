@@ -11,14 +11,14 @@
         {% endfor %}
     {% endif %}
     <form action="{% url 'user:update' %}" method="POST">
-        <input type="hidden" name="uid" value="{{ user.id }}">
-        用户姓名:<input type="text" name="username" value="{{ user.name }}"/><br />
-        年龄：  <input type="text" name="age" value="{{ user.age }}"/><br />
+        <input type="hidden" name="uid" value="{{ user.0.id }}">
+        用户姓名:<input type="text" name="username" value="{{ user.0.name }}"/><br />
+        年龄：  <input type="text" name="age" value="{{ user.0.age }}"/><br />
         性别：  <input type="radio" name="sex" value="1"
-                {% if user.sex != 0%} checked="checked" {% endif %}/> 男
+                {% if user.0.sex != 0%} checked="checked" {% endif %}/> 男
                 <input type="radio" name="sex" value="0"
-                {% if user.sex == 0%} checked="checked" {% endif %}/> 女 <br />
-        联系方式：<input type="text" name="tel" value="{{ user.tel }}"/><br />
+                {% if user.0.sex == 0%} checked="checked" {% endif %}/> 女 <br />
+        联系方式：<input type="text" name="tel" value="{{ user.0.tel }}"/><br />
         <input type="submit" name="update" value="修改信息" />
         {% csrf_token %}
     </form>
