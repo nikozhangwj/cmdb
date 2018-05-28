@@ -45,7 +45,21 @@ SQL_UPDATE_USER = '''
             '''
 
 SQL_CREATE_USER = '''
-                INSERT INTO user(name,age,tel,sex,password) VALUES(%s, %s, %s, %s, %s)     
+                INSERT INTO user(name,age,tel,sex,password) VALUES(%s, %s, %s, %s, %s)
+                '''
+
+SQL_DELETE_USER ='''
+                DELETE FROM user WHERE id=%s
+                '''
+
+SQL_CHANGE_PASSWORD = '''
+                UPDATE user SET password=%s WHERE id=%s
+            '''
+
+SQL_USER_PASSWORD = '''
+                SELECT password
+                FROM user
+                WHERE id=%s
                 '''
 
 # 获取用户信息并序列化
@@ -70,45 +84,44 @@ def get_user(uid):
     return user
 
 
-def save_user(users):
-    fhandler = open(path,'wt')
-    user = json.dumps(users)
-    fhandler.write(user)
-    fhandler.close()
-    return True
-
-
 # 验证登陆信息
 def valid_login(username,password):
     conn = mysqldb.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD,db=MYSQL_DB,charset=MYSQL_CHARSET)
-    cur = conn.cursor()
+    cur = conn.cursor(cursors.DictCursor)
     cur.execute(SQL_LOGIN,(username,password))
     result = cur.fetchone()
     cur.close()
     conn.close()
     print("login")
-    return {'id':result[0],'name':result[1]} if result else None
+    return {'id':result.get('id'),'name':result.get('name')} if result else None
+
 
 #通过回传的uid删除用户
 def delete_user(uid):
-    users = get_users()
-    users.pop(uid,None)
-    save_user(users)
+    conn = mysqldb.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD,db=MYSQL_DB,charset=MYSQL_CHARSET)
+    cur = conn.cursor(cursors.DictCursor)
+    cur.execute(SQL_DELETE_USER,(str(uid),))
+    conn.commit()
+    cur.close()
+    conn.close()
     return True
+
 
 def get_user_byname(name):
     conn = mysqldb.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD,db=MYSQL_DB,charset=MYSQL_CHARSET)
     cur = conn.cursor(cursors.DictCursor)
     cur.execute(SQL_USER_BY_NAME,(name,))
     user = cur.fetchall()
-    #print(user)
+    print(user)
     cur.close()
     conn.close()
     return user
 
+
 def vaild_name_unique(name,uid):
     user = get_user_byname(name)
-    if user is None:
+    #print(user)
+    if not user:
         return True
     else:
         return str(user[0]['id']) == str(uid)
@@ -151,6 +164,7 @@ def valid_update_user(params):
     user['sex'] = int(sex)
     #print(user)
     return user,is_valid,error
+
 
 #把用户信息update到数据文件中
 def update_user(user):
@@ -204,7 +218,7 @@ def valid_create_user(params):
 
 
 def create_user(user):
-    print(user)
+    #print(user)
     conn = mysqldb.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD,db=MYSQL_DB,charset=MYSQL_CHARSET)
     cur = conn.cursor()
     cur.execute(SQL_CREATE_USER,(user['name'],user['age'],user['tel'],user['sex'],user['password']))
@@ -212,6 +226,17 @@ def create_user(user):
     cur.close()
     conn.close()
     return True
+
+
+def get_user_password(uid):
+    conn = mysqldb.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD,db=MYSQL_DB,charset=MYSQL_CHARSET)
+    cur = conn.cursor(cursors.DictCursor)
+    cur.execute(SQL_USER_PASSWORD,(str(uid),))
+    user = cur.fetchall()
+    cur.close()
+    conn.close()
+    return user
+
 
 def valid_cp(params,param):
     old_password = params.get('old_password')
@@ -221,9 +246,10 @@ def valid_cp(params,param):
 
     errors = {}
     is_valid = True
-    users = get_users()
-    user_password = users[uid]['password']
-
+    user_password = get_user_password(uid)[0].get('password')
+    print(new1_password)
+    print(user_password)
+    print(old_password)
     if old_password.strip() == '':
         is_valid = False
         errors['old_password'] = '密码不能为空'
@@ -240,6 +266,10 @@ def valid_cp(params,param):
 
 
 def cp(uid,new_password):
-    users = get_users()
-    users[uid]['password'] = new_password
-    return save_user(users)
+    conn = mysqldb.connect(host=MYSQL_HOST,port=MYSQL_PORT,user=MYSQL_USER,password=MYSQL_PASSWORD,db=MYSQL_DB,charset=MYSQL_CHARSET)
+    cur = conn.cursor()
+    cur.execute(SQL_CHANGE_PASSWORD,(new_password,uid))
+    conn.commit()
+    cur.close()
+    conn.close()
+    return True
