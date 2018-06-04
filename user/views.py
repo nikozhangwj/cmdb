@@ -4,14 +4,14 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from datetime import datetime
 # Create your views here.
-
+from .models import User
 from .models import get_users, get_user, valid_login, delete_user, valid_update_user, update_user, valid_create_user, create_user, valid_cp, cp
 curr_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 def index(request):
     if not request.session.get('user'):
         return redirect('user:login')
     #return HttpResponse(datetime.now().strftime('%Y-%m-%d %H-%M-%S'))
-    return render(request, 'user/index.html', {'curr_time':curr_time,'users':get_users()})
+    return render(request, 'user/index.html', {'curr_time':curr_time,'users':User.get_list()})
 
 
 def login(request):
@@ -22,11 +22,9 @@ def login(request):
     else:
         username = request.POST.get('username')
         password = request.POST.get('password')
-        #username = 'niko'
-        #password = '123'
-        user = valid_login(username,password)
+        user = User.valid_login(username,password)
         if user:
-            request.session['user']=user
+            request.session['user']=user.as_dict()
             return redirect('user:index')
             #return render(request,'user/index.html',{'curr_time':curr_time,'users':get_user().items()})
         else:
@@ -55,9 +53,9 @@ def user_info(request):
 
     uid = request.GET.get('uid','')
     if request.session.get('user')['id'] == uid or request.session.get('user')['name'] == 'Admin':
-        return render(request,'user/user_info.html',{'user':get_user(uid)})
+        return render(request,'user/user_info.html',{'user':User.get_user_by_id(uid)})
     else:
-        return render(request,'user/index.html',{'errors':'你没有此操作权限', 'curr_time':curr_time, 'users':get_users()})
+        return render(request,'user/index.html',{'errors':'你没有此操作权限', 'curr_time':curr_time, 'users':User.get_list()})
 
 
 

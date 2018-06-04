@@ -7,7 +7,7 @@
 <body>
 	<form action="{% url 'user:login' %}" method="POST">
 		用户名:&nbsp;&nbsp;<input type="text" name="username" value="{{ name }}"><br/>
-		密码:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="password"/><br/>
+		密码:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="password" value="" /><br/>
 		<br/><input type="submit" name="login" value="登陆" />
 		{% if errors %}
 			{% for key,error in errors.items %}
