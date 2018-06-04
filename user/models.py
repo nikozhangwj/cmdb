@@ -7,25 +7,15 @@ from MySQLdb import cursors
 from .dbutils import mysql_connection
 # Create your models here.
 
-# 数据库信息
 
 
-SQL_USER_BY_NAME = '''
-                SELECT id,name,age,tel,sex
-                FROM user
-                WHERE name=%s
-            '''
-SQL_UPDATE_USER = '''
-                UPDATE user SET name=%s,age=%s,tel=%s,sex=%s WHERE id=%s
-            '''
+
 
 SQL_CREATE_USER = '''
                 INSERT INTO user(name,age,tel,sex,password) VALUES(%s, %s, %s, %s, %s)
                 '''
 
-SQL_DELETE_USER ='''
-                DELETE FROM user WHERE id=%s
-                '''
+
 
 SQL_CHANGE_PASSWORD = '''
                 UPDATE user SET password=%s WHERE id=%s
@@ -39,6 +29,17 @@ SQL_USER_PASSWORD = '''
 
 class User(object):
 
+    SQL_UPDATE_USER = '''
+                UPDATE user SET name=%s,age=%s,tel=%s,sex=%s WHERE id=%s
+            '''
+    SQL_USER_BY_NAME = '''
+                SELECT id,name,age,tel,sex
+                FROM user
+                WHERE name=%s
+            '''
+    SQL_DELETE_USER ='''
+                DELETE FROM user WHERE id=%s
+                '''
     SQL_USER = '''
                 SELECT id,name,age,tel,sex
                 FROM user
@@ -53,6 +54,7 @@ class User(object):
                 FROM user
                 WHERE name=%s and password=%s LIMIT 1;
             '''
+
     def __init__(self, id=None, name='', age=0, tel='', sex=1, password=''):
         self.id = id
         self.name = name
@@ -75,8 +77,63 @@ class User(object):
     @classmethod
     def get_user_by_id(cls,uid):
         cnt,result = mysql_connection.mysql_ut(cls.SQL_USER,(str(uid),),one=True)
-        print(result)
+        #print(result)
         return User(id=result[0],name=result[1],age=result[2],tel=result[3],sex=result[4])
+
+    @classmethod
+    def get_user_by_name(cls,name):
+        cnt,result = mysql_connection.mysql_ut(cls.SQL_USER_BY_NAME,(name,),one=True)
+        #print(result)
+        return User(id=result[0],name=result[1],age=result[2],tel=result[3],sex=result[4])
+
+    @classmethod
+    def delete_user(cls,uid):
+        cnt,result = mysql_connection.mysql_ut(cls.SQL_DELETE_USER,(str(uid),),fetch=False)
+        return True
+
+    @classmethod
+    def vaild_name_unique(cls,name,uid):
+        user = cls.get_user_by_name(name)
+        #print(user)
+        if not user:
+            return True
+        else:
+            return str(user.id) == str(uid)
+
+    @classmethod
+    def valid_update_user(cls,params):
+        #初始化函数内变量
+        user = User()
+        error = {}
+        is_valid = True
+        #检查用户是否有效
+        user.id = params.get('uid').strip()
+        if cls.get_user_by_id(user.id) is None:
+            error['id'] = '用户数据无效'
+            is_valid = False
+
+        #检查用户名是否存在
+        user.name = params.get('username').strip()
+        if not cls.vaild_name_unique(user.name,user.id):
+            is_valid = False
+            error['name'] = '用户名已存在'
+
+        #检查年龄格式是否正确
+        user.age = params.get('age').strip()
+        if not user.age.isdigit():
+            error['age'] = '年龄格式错误'
+            is_valid = False
+
+        user.tel = params.get('tel').strip()
+        user.sex = int(params.get('sex'))
+        #print(user)
+        return user,is_valid,error
+
+    def update_user(self):
+        #print(user)
+        args = (self.name,self.age,self.tel,self.sex,self.id)
+        cnt,result = mysql_connection.mysql_ut(self.SQL_UPDATE_USER,args,fetch=False)
+        return True
 
     def as_dict(self):
         return{

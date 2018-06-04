@@ -42,10 +42,10 @@ def delete(request):
     uid = request.GET.get('uid')
     if request.session.get('user')['name'] == 'Admin':
         if uid.isdigit():
-            delete_user(uid)
+            User.delete_user(uid)
         return redirect('user:index')
     else:
-        return render(request,'user/index.html',{'errors':'你没有此操作权限', 'curr_time':curr_time, 'users':get_users()})
+        return render(request,'user/index.html',{'errors':'你没有此操作权限', 'curr_time':curr_time, 'users':User.get_list()})
 
 def user_info(request):
     if not request.session.get('user'):
@@ -62,9 +62,9 @@ def user_info(request):
 def update(request):
     if not request.session.get('user'):
         return redirect('user:login')
-    user,is_valid,error = valid_update_user(request.POST)
+    user,is_valid,error = User.valid_update_user(request.POST)
     if is_valid:
-        update_user(user)
+        user.update_user()
         return redirect('user:index')
     else:
         return render(request,'user/user_info.html',{'user' : user, 'errors' : error})
@@ -74,7 +74,7 @@ def create(request):
     if not request.session.get('user'):
         return redirect('user:login')
     if request.session.get('user')['name'] != 'Admin':
-        return render(request,'user/index.html',{'errors':'你没有此操作权限', 'curr_time':curr_time, 'users':get_users()})
+        return render(request,'user/index.html',{'errors':'你没有此操作权限', 'curr_time':curr_time, 'users':User.get_list()})
     if 'GET' == request.method:
         return render(request,'user/create.html')
     else:
