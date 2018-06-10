@@ -11,24 +11,19 @@ from .dbutils import mysql_connection
 
 
 
-SQL_CREATE_USER = '''
-                INSERT INTO user(name,age,tel,sex,password) VALUES(%s, %s, %s, %s, %s)
-                '''
 
-
-
-SQL_CHANGE_PASSWORD = '''
-                UPDATE user SET password=%s WHERE id=%s
-            '''
-
-SQL_USER_PASSWORD = '''
+class User(object):
+    SQL_USER_PASSWORD = '''
                 SELECT password
                 FROM user
                 WHERE id=%s
                 '''
-
-class User(object):
-
+    SQL_CHANGE_PASSWORD = '''
+                UPDATE user SET password=%s WHERE id=%s
+            '''
+    SQL_CREATE_USER = '''
+                INSERT INTO user(name,age,tel,sex,password) VALUES(%s, %s, %s, %s, %s)
+                '''
     SQL_UPDATE_USER = '''
                 UPDATE user SET name=%s,age=%s,tel=%s,sex=%s WHERE id=%s
             '''
@@ -84,7 +79,7 @@ class User(object):
     def get_user_by_name(cls,name):
         cnt,result = mysql_connection.mysql_ut(cls.SQL_USER_BY_NAME,(name,),one=True)
         #print(result)
-        return User(id=result[0],name=result[1],age=result[2],tel=result[3],sex=result[4])
+        return User(id=result[0],name=result[1],age=result[2],tel=result[3],sex=result[4]) if result else None
 
     @classmethod
     def delete_user(cls,uid):
@@ -144,6 +139,70 @@ class User(object):
             'sex' : self.sex,
             'password' : self.password
         }
+
+    @classmethod
+    def valid_create_user(cls,params):
+        is_valid = True
+        user = User()
+        error = {}
+
+        user.name = params.get('username','').strip()
+        if user.name == '':
+            is_valid = False
+            error['name'] = '名字不能为空'
+        else:
+            if cls.get_user_by_name(user.name):
+                    is_valid = False
+                    error['name'] = '用户名已存在'
+
+        user.age = params.get('age','0').strip()
+        if not user.age.isdigit():
+            is_valid = False
+            error['age'] = '年龄格式错误'
+
+        user.sex = params.get('sex','0')
+        user.tel = params.get('tel','')
+        user.password = params.get('password1').strip()
+        if user.password == '' or user.password != params.get('password2').strip():
+            is_valid = False
+            error['password'] = '密码不能为空或两次输入不同'
+        #print(user.name,user.age,user.sex,user.tel,user.password)
+        return is_valid,user,error
+
+    def create_user(self):
+        #print(user)
+        args = (self.name,self.age,self.tel,self.sex,self.password)
+        cnt,result = mysql_connection.mysql_ut(self.SQL_CREATE_USER,args,fetch=False)
+        return True
+
+    @classmethod
+    def get_user_password(cls,uid):
+        cnt,user = mysql_connection.mysql_ut(cls.SQL_USER_PASSWORD,(str(uid),))
+        return user
+
+    @classmethod
+    def valid_cp(cls,params,param):
+        errors = {}
+        is_valid = True
+
+        if params.get('old_password').strip() == '':
+            is_valid = False
+            errors['old_password'] = '密码不能为空'
+
+        if params.get('old_password').strip() != get_user_password(param.get('user')['id'])[0].get('password'):
+            is_valid = False
+            errors['old_password'] = '你输入的密码不正确'
+
+        if params.get('new1_password').strip() != params.get('new2_password').strip() or params.get('new1_password').strip() == '':
+            is_valid = False
+            errors['new_password'] = '密码不能为空或两次输入不同'
+
+        return is_valid,params.get('new1_password').strip(),param.get('user')['id'],errors
+
+
+    def cp(self,uid,new_password):
+        cnt,result = mysql_connection.mysql_ut(self.SQL_CHANGE_PASSWORD,(new_password,uid),fetch=False)
+        return True
 
 
 

@@ -78,9 +78,9 @@ def create(request):
     if 'GET' == request.method:
         return render(request,'user/create.html')
     else:
-        is_valid,user,error = valid_create_user(request.POST)
+        is_valid,user,error = User.valid_create_user(request.POST)
         if is_valid:
-            create_user(user)
+            user.create_user()
             return redirect('user:index')
         else:
             return render(request,'user/create.html',{'errors':error})
@@ -92,9 +92,9 @@ def change_password(request):
     if 'GET' == request.method:
         return render(request,'user/change_password.html')
     else:
-        is_valid,new_password,uid,errors = valid_cp(request.POST,request.session)
+        is_valid,new_password,uid,errors = User.valid_cp(request.POST,request.session)
         if is_valid:
-            cp(uid,new_password)
+            user.cp(uid,new_password)
             return redirect('user:index')
         else:
             return render(request,'user/change_password.html',{'errors':errors})
