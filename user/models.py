@@ -62,7 +62,10 @@ class User(object):
     def valid_login(cls,name,password):
         args = (name,password)
         cnt, result = mysql_connection.mysql_ut(cls.SQL_LOGIN,(name,password),one=True)
-        return User(id=result[0],name=result[1],age=result[2],tel=result[3],sex=result[4],password=result[5])
+        if result:
+            return User(id=result[0],name=result[1],age=result[2],tel=result[3],sex=result[4],password=result[5])
+        else:
+            return None
 
     @classmethod
     def get_list(cls):

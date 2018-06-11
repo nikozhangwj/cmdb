@@ -1,20 +1,29 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>login</title>
-</head>
-<body>
-	<form action="{% url 'user:login' %}" method="POST">
-		用户名:&nbsp;&nbsp;<input type="text" name="username" value="{{ name }}"><br/>
-		密码:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="password" value="" /><br/>
-		<br/><input type="submit" name="login" value="登陆" />
-		{% if errors %}
-			{% for key,error in errors.items %}
-				{{error}}<br/>
-			{% endfor %}
-		{% endif %}
-		{% csrf_token %}
-	</form>
-</body>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title>用户管理</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'common.css' %}">
+  </head>
+  <body>
+    <div class="container">
+      <form class="form-signin" action="{% url 'user:login' %}" method="POST">
+        <h2 class="form-signin-heading">用户管理系统</h2>
+            {% if errors %}
+                {% for key,error in errors.items %}
+                    <div class="alert alert-danger" role="alert">{{error}}<br></div>
+                {% endfor %}
+            {% endif %}
+            {% csrf_token %}
+        <label for="inputEmail" class="sr-only">用户名</label>
+        <input type="text" class="form-control" placeholder="用户名" name="username" value="{{ name }}">
+        <label for="inputPassword" class="sr-only">密码</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" value="">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
+      </form>
+
+    </div>
+  </body>
 </html>

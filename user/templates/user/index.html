@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +11,7 @@
     -->
 </head>
 <body>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
     <!--服务器时间:{{ curr_time }}-->
     当前时间:<span id='time'></span><br/>
     当前登陆用户是:{{ request.session.user.name }}
@@ -22,7 +25,7 @@
     <a href="/user/logout">退出登录</a>
     <br/>
     <!--<a href="/user/create">留言</a>-->
-    <table>
+    <table class="table table-hover table-bordered">
         <tr>
             <th>ID</th>
             <th>姓名</th>
