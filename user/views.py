@@ -5,13 +5,14 @@ from django.http import HttpResponse
 from datetime import datetime
 # Create your views here.
 from .models import User
-from .models import get_users, get_user, valid_login, delete_user, valid_update_user, update_user, valid_create_user, create_user, valid_cp, cp
+from .validdator import UserValidator
+
 curr_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 def index(request):
     if not request.session.get('user'):
         return redirect('user:login')
     #return HttpResponse(datetime.now().strftime('%Y-%m-%d %H-%M-%S'))
-    return render(request, 'user/index.html', {'curr_time':curr_time,'users':User.get_list()})
+    return render(request, 'user/index.html', {'curr_time':curr_time,'users':User.objects.all()})
 
 
 def login(request):
@@ -22,7 +23,7 @@ def login(request):
     else:
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = User.valid_login(username,password)
+        user = UserValidator.valid_login(username,password)
         if user:
             request.session['user']=user.as_dict()
             return redirect('user:index')
@@ -45,7 +46,7 @@ def delete(request):
             User.delete_user(uid)
         return redirect('user:index')
     else:
-        return render(request,'user/index.html',{'errors':'你没有此操作权限', 'curr_time':curr_time, 'users':User.get_list()})
+        return render(request,'user/index.html',{'errors':'你没有此操作权限', 'curr_time':curr_time, 'users':User.objects.all()})
 
 def user_info(request):
     if not request.session.get('user'):
@@ -53,18 +54,18 @@ def user_info(request):
 
     uid = request.GET.get('uid','')
     if request.session.get('user')['id'] == uid or request.session.get('user')['name'] == 'Admin':
-        return render(request,'user/user_info.html',{'user':User.get_user_by_id(uid)})
+        return render(request,'user/user_info.html',{'user':User.objects.get(id=uid)})
     else:
-        return render(request,'user/index.html',{'errors':'你没有此操作权限', 'curr_time':curr_time, 'users':User.get_list()})
+        return render(request,'user/index.html',{'errors':'你没有此操作权限', 'curr_time':curr_time, 'users':User.objects.all()})
 
 
 
 def update(request):
     if not request.session.get('user'):
         return redirect('user:login')
-    user,is_valid,error = User.valid_update_user(request.POST)
+    user,is_valid,error = UserValidator.valid_update_user(request.POST)
     if is_valid:
-        user.update_user()
+        user.save()
         return redirect('user:index')
     else:
         return render(request,'user/user_info.html',{'user' : user, 'errors' : error})
@@ -74,27 +75,28 @@ def create(request):
     if not request.session.get('user'):
         return redirect('user:login')
     if request.session.get('user')['name'] != 'Admin':
-        return render(request,'user/index.html',{'errors':'你没有此操作权限', 'curr_time':curr_time, 'users':User.get_list()})
+        return render(request,'user/index.html',{'errors':'你没有此操作权限', 'curr_time':curr_time, 'users':User.objects.all()})
     if 'GET' == request.method:
         return render(request,'user/create.html')
     else:
-        is_valid,user,error = User.valid_create_user(request.POST)
+        is_valid,user,error = UserValidator.valid_create_user(request.POST)
         if is_valid:
-            user.create_user()
+            user.save()
             return redirect('user:index')
         else:
             return render(request,'user/create.html',{'errors':error})
 
 
 def change_password(request):
+    uid = request.session.get('user')['id']
     if not request.session.get('user'):
         return redirect('user:login')
     if 'GET' == request.method:
         return render(request,'user/change_password.html')
     else:
-        is_valid,new_password,uid,errors = User.valid_cp(request.POST,request.session)
+        is_valid,user,errors = UserValidator.valid_cp(request.POST,uid)
         if is_valid:
-            user.cp(uid,new_password)
+            user.save()
             return redirect('user:index')
         else:
             return render(request,'user/change_password.html',{'errors':errors})

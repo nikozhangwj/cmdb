@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'cmdb.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cmdb_niko',
+        'NAME': 'cmdb_niko2',
         'HOST': '127.0.0.1',
         'PORT': 3306 ,
         'USER': 'root' ,

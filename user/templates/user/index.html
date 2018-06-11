@@ -1,37 +1,44 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="zh-CN">
+  <head>
     <meta charset="utf-8">
-    <title>用户管理</title>
-    {% load staticfiles %}
-    <!--
-    <link rel="stylesheet" type="text/css" href="{% static 'user/index.css' %}"></link>
-    -->
-</head>
-<body>
+
+    <title>用户管理系统</title>
+
+    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
-    <!--服务器时间:{{ curr_time }}-->
-    当前时间:<span id='time'></span><br/>
-    当前登陆用户是:{{ request.session.user.name }}
-    {% if errors %}
-        {% for error in errors %}
-            {{error}}
-        {% endfor %}
-    {% endif %}
-    <a href="/user/change_password">修改密码</a>&nbsp;&nbsp;
-    <a href="/user/create">添加用户</a>&nbsp;&nbsp;
-    <a href="/user/logout">退出登录</a>
-    <br/>
-    <!--<a href="/user/create">留言</a>-->
-    <table class="table table-hover table-bordered">
+    <link rel="stylesheet" type="text/css" href="{% static 'common.css' %}">
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" class="active"><label>当前用户：{{ request.session.user.name }}</label></li>
+            <li role="presentation"><a class="btn btn-info btn-xs" href="/user/change_password">修改密码</a></li>
+            <li role="presentation"><a class="btn btn-info btn-xs" href="/user/logout">退出登录</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">用户管理系统</h3>
+      </div>
+
+      <div class="jumbotron">
+
+        <p><a class="btn btn-lg btn-success" href="/user/create" role="button">添加用户</a></p>
+      </div>
+
+      <table class="table table-hover table-bordered">
         <tr>
             <th>ID</th>
             <th>姓名</th>
             <th>年龄</th>
             <th>性别</th>
             <th>联系方式</th>
+            <th>所在地</th>
             <th>操作方式</th>
         </tr>
         {% for user in users %}
@@ -47,7 +54,7 @@
                     {% endif %}
                 </td>
                 <td>{{ user.tel }}</td>
-
+                <td>{{ user.addr }}</td>
                 <td>
                     <a href="{% url 'user:user_info' %}?uid={{ user.id }}">修改&nbsp;</a>
                     <a href="{% url 'user:delete' %}?uid={{ user.id }}">&nbsp;删除</a>
@@ -57,5 +64,12 @@
         {% endfor %}
     </table>
     <script type="text/javascript" src="{% static 'user/index.js' %}"></script>
-</body>
+
+      <footer class="footer">
+        <p>&copy; 2018 NikoZhang, Inc.</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+  </body>
 </html>

@@ -19,6 +19,7 @@
                 <input type="radio" name="sex" value="0"
                 {% if user.sex == 0%} checked="checked" {% endif %}/> 女 <br />
         联系方式：<input type="text" name="tel" value="{{ user.tel }}"/><br />
+        所在地：<input type="text" name="addr" value="{{ user.addr }}"/><br />
         <input type="submit" name="update" value="修改信息" />
         {% csrf_token %}
     </form>
