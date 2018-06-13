@@ -1,26 +1,74 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="zh-CN">
+  <head>
     <meta charset="utf-8">
-    <title>编辑用户信息</title>
-</head>
-<body>
-    {% if errors %}
-        {% for key,error in errors.items %}
-            {{ error }}<br/>
-        {% endfor %}
-    {% endif %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>用户管理系统</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'common.css' %}">
+  </head>
+
+  <body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">用户管理系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/user/index">Home</a></li>
+            <li><a href="/user/change_password">修改密码</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">{{ request.session.user.name }}</a></li>
+            <li><a href="/user/logout">退出登录</a></li>
+            <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <div class="container">
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <p class="bg-danger">
+            {% if errors %}
+                {% for key,error in errors.items %}
+                    {{ error }}<br/>
+                {% endfor %}
+            {% endif %}
+        </p>
     <form action="{% url 'user:update' %}" method="POST">
         <input type="hidden" name="uid" value="{{ user.id }}">
-        用户姓名:<input type="text" name="username" value="{{ user.name }}"/><br />
-        年龄：  <input type="text" name="age" value="{{ user.age }}"/><br />
-        性别：  <input type="radio" name="sex" value="1"
+        <label>用户名</label>
+        <input type="text" name="username" value="{{ user.name }}" class="form-control" placeholder="用户名"/><br />
+        <label>年龄</label>
+        <input type="text" name="age" value="{{ user.age }}" class="form-control" placeholder="年龄"/><br />
+        性别：
+            <label class="radio-inline">
+                <input id="inlineRadio1" type="radio" name="sex" value="1"
                 {% if user.sex != 0%} checked="checked" {% endif %}/> 男
-                <input type="radio" name="sex" value="0"
-                {% if user.sex == 0%} checked="checked" {% endif %}/> 女 <br />
-        联系方式：<input type="text" name="tel" value="{{ user.tel }}"/><br />
-        所在地：<input type="text" name="addr" value="{{ user.addr }}"/><br />
-        <input type="submit" name="update" value="修改信息" />
+            </label>
+            <label class="radio-inline">
+                <input id="inlineRadio2" type="radio" name="sex" value="0"
+                {% if user.sex == 0%} checked="checked" {% endif %}/> 女
+            </label>
+        <br /><br />
+        <label>联系方式</label>
+        <input type="text" name="tel" value="{{ user.tel }}" class="form-control" placeholder="联系方式""/><br />
+        <label>所在地</label>
+        <input type="text" name="addr" value="{{ user.addr }}" class="form-control" placeholder="所在地"/><br />
+        <input type="submit" name="update" value="修改信息" class="btn btn-xs btn-success"/>
         {% csrf_token %}
     </form>
 </body>

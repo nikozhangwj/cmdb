@@ -41,13 +41,15 @@
     <div class="container">
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
-        {% if errors %}
-        {% for key,error in errors.items %}
-            {{ error }}
-            <br/>
-        {% endfor %}
-        <br/>
-    {% endif %}
+        <p class="bg-danger">
+            {% if errors %}
+                {% for key,error in errors.items %}
+                    {{ error }}
+                    <br/>
+                {% endfor %}
+                <br/>
+            {% endif %}
+        </p>
     <form action="{% url 'user:create' %}" method="POST">
         <label class="sr-only">用户姓名</label>
         <input type="text" name="username" value="" class="form-control" placeholder="用户名"/><br />
