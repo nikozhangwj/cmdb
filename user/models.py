@@ -24,3 +24,11 @@ class User(models.Model):
             'sex' : self.sex,
             'password' : self.password
         }
+
+
+
+class Log_anlyze(models.Model):
+    IP = models.CharField(max_length=255, null=False, default='')
+    URL = models.CharField(max_length=512, null=False, default='')
+    STATUS = models.CharField(max_length=32, null=False, default='')
+    TIME = models.DateTimeField(null=False)
