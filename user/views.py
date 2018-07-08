@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from datetime import datetime
 # Create your views here.
 from .models import User
@@ -87,6 +87,20 @@ def create(request):
             return render(request,'user/create.html',{'errors':error})
 
 
+def create_ajax(request):
+    if not request.session.get('user'):
+        return JsonResponse({'code':403, 'errors':{'permission':'未登录'}})
+    if request.session.get('user')['name'] != 'Admin':
+        return JsonResponse({'code':403, 'errors':{'permission':'你没有此操作权限'}})
+    else:
+        is_valid,user,error = UserValidator.valid_create_user(request.POST)
+        if is_valid:
+            user.save()
+            return JsonResponse({'code':200})
+        else:
+            return JsonResponse({'code':400, 'errors':error})
+
+
 def change_password(request):
     uid = request.session.get('user')['id']
     if not request.session.get('user'):
@@ -100,3 +114,14 @@ def change_password(request):
             return redirect('user:index')
         else:
             return render(request,'user/change_password.html',{'errors':errors})
+
+def delete_ajax(request):
+    if not request.session.get('user'):
+        return JsonResponse({'code':403, 'errors':{'permission':'未登录'}})
+    uid = request.GET.get('id')
+    if request.session.get('user')['name'] == 'Admin':
+        if uid.isdigit():
+            User.delete_user(uid)
+            return JsonResponse({'code':200})
+    else:
+        return JsonResponse({'code':403, 'errors':{'permission':'你没有此操作权限'}})

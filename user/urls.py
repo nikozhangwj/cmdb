@@ -16,4 +16,6 @@ urlpatterns = [
     path('update/',views.update,name='update'),
     path('create/',views.create,name='create'),
     path('change_password/',views.change_password,name='change_password'),
+    path('create/ajax',views.create_ajax,name='create_ajax'),
+    path('delete/ajax',views.delete_ajax,name='delete_ajax')
 ]

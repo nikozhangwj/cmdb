@@ -35,10 +35,10 @@ class UserValidator(Validator):
 
 
     @classmethod
-    def vaild_name_unique(cls,name,uid):
+    def vaild_name_unique(cls,name,uid=None):
         user = None
         try:
-            user = User.objects.get(id=uid)
+            user = User.objects.get(name=name)
         except Exception as e:
             pass
 
@@ -86,29 +86,30 @@ class UserValidator(Validator):
         user.tel = params.get('tel').strip()
         user.sex = int(params.get('sex'))
         user.addr = params.get('addr').strip()
-        #print(user)
         return user,is_valid,error
 
     @classmethod
     def valid_create_user(cls,params):
+        
         is_valid = True
         user = User()
         error = {}
 
-        name = params.get('username','').strip()
-
+        user.name = params.get('username','').strip()
         #检查用户名
-        if name == '':
+        if user.name  == '':
             error['name'] = '用户名不能为空'
             is_valid = False
-        elif not cls.vaild_name_unique(name, user.id):
-            is_valid = False
-            error['name'] = '用户名已存在'
-        else:
-            user.name = name
 
+        if not cls.vaild_name_unique(user.name):
+            is_valid = False
+            error['name'] = '用户名重复'
+            print('check username')
+        else:
+            pass
+            
         user.age = params.get('age','0').strip()
-        if not cls.is_integer(user.age):
+        if not user.age.isdigit():
             is_valid = False
             error['age'] = '年龄格式错误'
 
@@ -118,7 +119,6 @@ class UserValidator(Validator):
         if user.password == '' or user.password != params.get('password2').strip():
             is_valid = False
             error['password'] = '密码不能为空或两次输入不同'
-        #print(user.name,user.age,user.sex,user.tel,user.password)
         user.create_time = timezone.now()
         return is_valid,user,error
 
