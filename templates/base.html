@@ -41,7 +41,7 @@
       </div>
     </nav>
 
-    <div class="container">
+    <div class="container-fluid">
         {% block container %}{% endblock %}
     </div>
     {% block dialogs %}{% endblock %}
@@ -50,6 +50,7 @@
     <script type="text/javascript" src="{% static 'sweetalert-1.0.1/dist/sweetalert.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'DataTables-1.10.15/media/js/jquery.dataTables.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'DataTables-1.10.15/media/js/dataTables.bootstrap.min.js' %}"></script>
+    <script src="{% static 'echart/echarts.min.js' %}"></script>
     {% block scripts %}{% endblock %}
     <script type="text/javascript">
       jQuery(document).ready(function() {

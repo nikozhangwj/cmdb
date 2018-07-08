@@ -54,3 +54,18 @@ class Host(models.Model):
             if isinstance(v, (int, float, bool, str, datetime.datetime)):
                 rt[k] = v
         return rt
+
+class Resource(models.Model):
+    ip = models.GenericIPAddressField(null=False, default='0.0.0.0')
+    cpu = models.FloatField(null=False, default=0)
+    mem = models.FloatField(null=False ,default=0)
+    created_time = models.DateTimeField(auto_now_add=True)
+
+    @classmethod
+    def create_obj(cls, ip, cpu, mem):
+        resource = Resource()
+        resource.ip = ip
+        resource.cpu = cpu
+        resource.mem = mem
+        resource.save()
+        return resource

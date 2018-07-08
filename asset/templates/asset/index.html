@@ -20,6 +20,22 @@
     <tbody>
     </tbody>
 </table>
+<div class="modal fade" id="dialog-dog-asset" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">资源监控</h4>
+      </div>
+      <div class="modal-body">
+         <div id="main" style="width: 850px;height:400px;"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 {% endblock %}
 
 {% block js %}
@@ -91,7 +107,7 @@ var table = jQuery('#table_asset').DataTable({
         },
         {
             "data" : function(row) {
-                return '<a class="btn btn-success btn-xs btn-edit-asset" href="javascript:void(0)" data-id="' + row['id'] + '">编辑</a>' + 
+                return '<a class="btn btn-success btn-xs btn-edit-asset" href="javascript:void(0)" data-id="' + row['id'] + '">编辑</a>' + '<a class="btn btn-primary btn-xs btn-dog-asset" href="javascript:void(0)" data-id="' + row['id'] + '">监控</a>' +
                 '<a class="btn btn-danger btn-xs btn-delete-asset" data-id="' + row['id'] + '" href="javascript:void(0)">删除</a>';
             }
         },
@@ -101,6 +117,70 @@ var table = jQuery('#table_asset').DataTable({
 jQuery('#table_asset').on('click', '.btn-edit-asset', function() {
     console.log('编辑' + jQuery(this).attr('data-id')); 
     table.ajax.reload(null, false);
+});
+
+ //btn-dog-asset
+$('#table_asset').on('click', '.btn-dog-asset', function(){
+    var char_resource = echarts.init(document.getElementById('main'));
+    var id = id = jQuery(this).data('id');
+        // 指定图表的配置项和数据
+        var chart_resource_option = {
+                title: {
+                    text: '主机监控'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['CPU','mem']
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: []
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [
+                   
+                    {
+                        name:'CPU',
+                        type:'line',
+                        stack: 'CPU',
+                        data:[]
+                    },
+                    {
+                        name:'mem',
+                        type:'line',
+                        stack: 'mem',
+                        data:[]
+                    }
+                ]
+        };
+        $.get('{% url 'asset:resource_ajax' %}',{'id' : id},function(result) {
+            if(result['code'] == 200) {
+                // 从后端获取数据
+                chart_resource_option['xAxis']['data'] = result['result']['xAxis'];
+                chart_resource_option['series'][0]['data'] = result['result']['cpu_datas'];
+                chart_resource_option['series'][1]['data'] = result['result']['mem_datas'];
+                // 使用刚指定的配置项和数据显示图表。
+                char_resource.setOption(chart_resource_option);
+            }
+        }, 'json')
+        
+
+$('#dialog-dog-asset').modal({show:true});
 });
 
 jQuery('#table_asset').on('click', '.btn-delete-asset', function() {
