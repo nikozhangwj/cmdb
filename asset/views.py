@@ -26,7 +26,7 @@ def resource_ajax(request):
     try:
         _id = request.GET.get('id',0)
         host=Host.objects.get(id=_id)
-        start_time = datetime.now() - timedelta(days=1)
+        start_time = datetime.now() - timedelta(hours=1)
         resources = Resource.objects.filter(ip=host.ip,created_time__gte=start_time).order_by('created_time')
 
         xAxis = []

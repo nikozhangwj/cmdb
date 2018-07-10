@@ -90,7 +90,7 @@ class UserValidator(Validator):
 
     @classmethod
     def valid_create_user(cls,params):
-        
+
         is_valid = True
         user = User()
         error = {}
@@ -107,7 +107,7 @@ class UserValidator(Validator):
             print('check username')
         else:
             pass
-            
+
         user.age = params.get('age','0').strip()
         if not user.age.isdigit():
             is_valid = False
@@ -130,7 +130,7 @@ class UserValidator(Validator):
 
         user = User.objects.get(pk=uid)
         print(uid)
-
+        print(params)
         if params.get('old_password').strip() == '':
             is_valid = False
             errors['old_password'] = '密码不能为空'

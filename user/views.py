@@ -115,6 +115,20 @@ def change_password(request):
         else:
             return render(request,'user/change_password.html',{'errors':errors})
 
+
+def change_password_ajax(request):
+    uid = request.session.get('user')['id']
+    if not request.session.get('user'):
+        return redirect('user:login')
+    else:
+        is_valid,user,errors = UserValidator.valid_cp(request.POST,uid)
+        if is_valid:
+            user.save()
+            return JsonResponse({'code' : 200})
+        else:
+            return JsonResponse({'code' : 400, 'errors' : errors})
+
+
 def delete_ajax(request):
     if not request.session.get('user'):
         return JsonResponse({'code':403, 'errors':{'permission':'未登录'}})

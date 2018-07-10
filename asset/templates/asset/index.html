@@ -115,7 +115,7 @@ var table = jQuery('#table_asset').DataTable({
 });
 
 jQuery('#table_asset').on('click', '.btn-edit-asset', function() {
-    console.log('编辑' + jQuery(this).attr('data-id')); 
+    console.log('编辑' + jQuery(this).attr('data-id'));
     table.ajax.reload(null, false);
 });
 
@@ -137,7 +137,15 @@ var chart_resource_option = {
                     containLabel: true
                 },
                 toolbox: {
+                    show: true,
                     feature: {
+                        dataZoom: {
+                            yAxisIndex: 'none'
+                        },
+                        dataView: {readOnly: false},
+                        magicType: {type: ['line', 'bar']},
+                        restore: {},
+                        saveAsImage: {}
                     }
                 },
                 xAxis: {
@@ -149,16 +157,18 @@ var chart_resource_option = {
                     type: 'value'
                 },
                 series: [
-                   
+
                     {
                         name:'CPU',
                         type:'line',
+                        smooth: true,
                         stack: 'CPU',
                         data:[]
                     },
                     {
                         name:'mem',
                         type:'line',
+                        smooth: true,
                         stack: 'mem',
                         data:[]
                     }
@@ -179,7 +189,7 @@ function reload_resource_chart(id) {
                 chart_resource.setOption(chart_resource_option);
             }
         }, 'json');
-    }   
+    }
 
 var th = null
  //btn-dog-asset
@@ -195,7 +205,7 @@ $('#table_asset').on('click', '.btn-dog-asset', function(){
 
     $('#dialog-dog-asset').modal({show:true});
 });
-        
+
 
 
 
@@ -209,7 +219,7 @@ $('#dialog-dog-asset').on('hidden.bs.modal',function(e) {
 
 
 jQuery('#table_asset').on('click', '.btn-delete-asset', function() {
-    console.log('删除' + jQuery(this).attr('data-id')); 
+    console.log('删除' + jQuery(this).attr('data-id'));
     table.ajax.reload(null, false);
 });
 {% endblock %}

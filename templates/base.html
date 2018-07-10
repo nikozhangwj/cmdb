@@ -5,9 +5,11 @@
   <head>
     <meta charset="utf-8">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'sweetalert-1.0.1/dist/sweetalert.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'DataTables-1.10.15/media/css/dataTables.bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'DataTables-1.10.15/media/css/dataTables.bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'DataTables-1.10.15/media/css/jquery.dataTables.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sweetalert-1.0.1/dist/sweetalert.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'common.css' %}">
     {% block links %}{% endblock %}
     <style type="text/css">
       body {
@@ -32,17 +34,24 @@
           <ul class="nav navbar-nav">
             <li class="{% block nav_user %}{% endblock %}"><a href="{% url 'user:index' %}">用户管理</a></li>
             <li class="{% block nav_asset %}{% endblock %}"><a href="{% url 'asset:index' %}">资产管理</a></li>
+            <li>{% block li_create %}{% endblock %}</li>
+            <li>{% block li_changepassword %}{% endblock %}</li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a>当前登陆用户是:{{ request.session.user.name }}</a></li>
-            <li class="active"><a href="{% url 'user:logout' %}">退出登陆</a></a></li>
+            <li class="active"><a href="{% url 'user:logout' %}">退出登陆</a></li>
           </ul>
         </div>
       </div>
     </nav>
 
     <div class="container-fluid">
+        <div class="jumbotron">
         {% block container %}{% endblock %}
+        </div>
+        <footer class="footer">
+            <p>&copy; 2018 NikoZhang, Inc.</p>
+        </footer>
     </div>
     {% block dialogs %}{% endblock %}
     <script type="text/javascript" src="{% static 'jquery/jquery-1.12.4.js'%}"></script>
