@@ -119,14 +119,10 @@ jQuery('#table_asset').on('click', '.btn-edit-asset', function() {
     table.ajax.reload(null, false);
 });
 
- //btn-dog-asset
-$('#table_asset').on('click', '.btn-dog-asset', function(){
-    var char_resource = echarts.init(document.getElementById('main'));
-    var id = id = jQuery(this).data('id');
-        // 指定图表的配置项和数据
-        var chart_resource_option = {
+// 图形
+var chart_resource_option = {
                 title: {
-                    text: '主机监控'
+                    text: 'CPU,内存监控'
                 },
                 tooltip: {
                     trigger: 'axis'
@@ -168,20 +164,49 @@ $('#table_asset').on('click', '.btn-dog-asset', function(){
                     }
                 ]
         };
-        $.get('{% url 'asset:resource_ajax' %}',{'id' : id},function(result) {
+
+
+
+function reload_resource_chart(id) {
+    $.get('{% url 'asset:resource_ajax' %}',{'id' : id, '_' : (new Date()).getTime()},function(result) {
             if(result['code'] == 200) {
                 // 从后端获取数据
+                var chart_resource = echarts.init(document.getElementById('main'));
                 chart_resource_option['xAxis']['data'] = result['result']['xAxis'];
                 chart_resource_option['series'][0]['data'] = result['result']['cpu_datas'];
                 chart_resource_option['series'][1]['data'] = result['result']['mem_datas'];
                 // 使用刚指定的配置项和数据显示图表。
-                char_resource.setOption(chart_resource_option);
+                chart_resource.setOption(chart_resource_option);
             }
-        }, 'json')
+        }, 'json');
+    }   
+
+var th = null
+ //btn-dog-asset
+$('#table_asset').on('click', '.btn-dog-asset', function(){
+    var id = id = jQuery(this).data('id');
+
+    reload_resource_chart(id);
+    if(th === null)
+        th = setInterval(function() {
+            reload_resource_chart(id);
+        },30*1000);
+
+
+    $('#dialog-dog-asset').modal({show:true});
+});
         
 
-$('#dialog-dog-asset').modal({show:true});
+
+
+$('#dialog-dog-asset').on('hidden.bs.modal',function(e) {
+    if(th !== null) {
+    clearInterval(th);
+    th = null;
+}
 });
+
+
 
 jQuery('#table_asset').on('click', '.btn-delete-asset', function() {
     console.log('删除' + jQuery(this).attr('data-id')); 
