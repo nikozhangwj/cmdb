@@ -21,7 +21,7 @@ class Host(models.Model):
     remark = models.TextField(null=False, default='')
     purchase_time = models.DateTimeField(null=False)
     over_insurance_time = models.DateTimeField(null=False)
-    
+
     created_time = models.DateTimeField(null=False, auto_now_add=True)
     last_time = models.DateTimeField(null=False)
 
@@ -33,8 +33,8 @@ class Host(models.Model):
         except ObjectDoesNotExist as e:
             obj = cls()
             obj.ip = ip
-            obj.purchase_time = timezone.now()
-            obj.over_insurance_time = timezone.now()
+            obj.purchase_time = timezone.now().strftime('%Y-%m-%d %H:%M')
+            obj.over_insurance_time = timezone.now().strftime('%Y-%m-%d %H:%M')
 
         obj.name = name
         obj.mac = mac
@@ -44,7 +44,7 @@ class Host(models.Model):
         obj.cpu = cpu
         obj.disk = disk
 
-        obj.last_time = timezone.now()
+        obj.last_time = timezone.now().strftime('%Y-%m-%d %H:%M')
         obj.save()
         return obj
 

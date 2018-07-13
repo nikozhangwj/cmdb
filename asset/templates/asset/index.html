@@ -20,6 +20,7 @@
     <tbody>
     </tbody>
 </table>
+<!-- /.modal -->
 <div class="modal fade" id="dialog-dog-asset" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -33,9 +34,35 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div>
+  </div>
+</div>
+<!-- /.modal -->
+<!-- Modal-edit-asset -->
+<div class="modal fade" id="dialog-edit-asset" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">修改主机信息</h4>
+      </div>
+      <div class="modal-body">
+        <form class="from-edit-asset">
+            <label class="sr-only">名称</label>
+            <input type="text" id="name" name="name" class="form-control" placeholder="名称"><br/>
+            <label class="sr-only">操作系统</label>
+            <input type="text" id="os" name="os" class="form-control" placeholder="操作系统"><br/>
+            <label class="sr-only">架构</label>
+            <input type="text" id="arch" name="arch" class="form-control" placeholder="架构"><br/>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary btn-save-asset">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 {% block js %}
@@ -114,9 +141,24 @@ var table = jQuery('#table_asset').DataTable({
     ]
 });
 
+
+// edit-asset
 jQuery('#table_asset').on('click', '.btn-edit-asset', function() {
-    console.log('编辑' + jQuery(this).attr('data-id'));
+    var id = jQuery(this).attr('data-id');
+    $('#dialog-edit-asset').modal({show:true});
+    $.get("{% url 'asset:list_info_ajax' %}", {'id' : id, '_' : (new Date()).getTime()} ,function(result) {
+        console.log(result);
+        $('#name').val(result['result']['name']);
+        $('#os').val(result['result']['os']);
+        $('#arch').val(result['result']['arch']);
+    });
+
     table.ajax.reload(null, false);
+});
+
+// save-asset
+$('.btn-save-asset').on('click', function() {
+    var data = $('.from-edit-asset').serializeArray();
 });
 
 // 图形

@@ -29,7 +29,7 @@ class ResultCallback(CallbackBase):
         ip = facts.get('ansible_default_ipv4', {}).get('address', '')
         name = facts.get('ansible_nodename', '')
         mac = facts.get('ansible_default_ipv4', {}).get('macaddress', '')
-        os = facts.get('ansible_os_family', '')
+        os = facts.get('ansible_distribution', '') + facts.get('ansible_distribution_major_version', '')
         arch = facts.get('ansible_architecture', '')
         mem = facts.get('ansible_memtotal_mb', '')
         cpu = facts.get('ansible_processor_vcpus', '')
@@ -37,7 +37,7 @@ class ResultCallback(CallbackBase):
         disk = [{'name' : i.get('device'), 'total' : int(i.get('size_total')) / 1024 / 1024 } for i in facts.get('ansible_mounts', [])]
         #disk = {i.get('device') : int(i.get('size_total')) / 1024 / 1024 for i in facts.get('ansible_mounts', [])}
         Host.create_or_replace(ip, name, mac, os, arch, mem, cpu, json.dumps(disk))
-        
+
 
 class Command(BaseCommand):
 

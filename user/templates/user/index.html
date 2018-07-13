@@ -24,31 +24,7 @@
             <th>操作方式</th>
         </tr>
     </thead>
-
     <tbody>
-      {% for user in users %}
-        <tr>
-            <td>{{ user.id }}</td>
-            <td>{{ user.name }}</td>
-            <td>{{ user.age }}</td>
-            <td>
-                {% if user.sex == 0 %}
-                    女
-                {% else %}
-                    男
-                {% endif %}
-            </td>
-            <td>{{ user.tel }}</td>
-            <td>{{ user.addr }}</td>
-            <td>
-                <a class="btn btn-sm btn-warning" href="{% url 'user:user_info' %}?uid={{ user.id }}">修改</a>
-                {% if request.session.user.id != user.id %}
-                <a class="btn btn-sm btn-danger btn-delete-user" data-id="{{ user.id }}" href="javascript:void(0)">删除</a>
-                {% endif %}
-            </td>
-
-        </tr>
-      {% endfor %}
     </tbody>
 </table>
 </div> <!-- /container -->
@@ -163,7 +139,31 @@
           },
           "decimal": "-",
           "thousands": "."
-      }
+      },
+
+      ajax : {
+            url : '{% url "user:list_ajax" %}',
+            dataSrc: 'result',
+        },
+
+      columns : [
+        {
+            "data" : function(row, type, set, meta) {
+                return row['id'];
+            }
+        },
+        { "data" : "name" },
+        { "data" : "age" },
+        { "data" : "sex" },
+        { "data" : "tel" },
+        { "data" : "addr" },
+        { "data" : function(row) {
+            return '<a class="btn btn-sm btn-warning" href="javascript:void(0)" data-id="' + row['id'] + '">修改</a>' + '<a class="btn btn-sm btn-danger btn-delete-user" href="javascript:void(0)" data-id="' + row['id'] + '">删除</a>'
+          }
+        },
+      ]
+
+
   });
 
   //btn-change-password

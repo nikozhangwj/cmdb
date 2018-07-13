@@ -22,7 +22,8 @@ class User(models.Model):
             'age' : self.age,
             'tel' : self.tel,
             'sex' : self.sex,
-            'password' : self.password
+            'password' : self.password,
+            'addr' : self.addr
         }
 
 

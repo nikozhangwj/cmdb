@@ -12,8 +12,14 @@ def index(request):
     if not request.session.get('user'):
         return redirect('user:login')
     #return HttpResponse(datetime.now().strftime('%Y-%m-%d %H-%M-%S'))
-    return render(request, 'user/index.html', {'curr_time':curr_time,'users':User.objects.all()})
+    return render(request, 'user/index.html')
 
+def list_ajax(request):
+    if not request.session.get('user'):
+        return JsonResponse({'code' : 403, 'result' : []})
+    result= [user.as_dict() for user in User.objects.all()]
+    print(result)
+    return JsonResponse({'code' : 200, 'result' : result})
 
 def login(request):
     if request.session.get('user'):
@@ -119,7 +125,7 @@ def change_password(request):
 def change_password_ajax(request):
     uid = request.session.get('user')['id']
     if not request.session.get('user'):
-        return redirect('user:login')
+        return JsonResponse({'code':403, 'errors':{'permission':'未登录'}})
     else:
         is_valid,user,errors = UserValidator.valid_cp(request.POST,uid)
         if is_valid:
