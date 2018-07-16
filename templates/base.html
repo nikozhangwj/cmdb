@@ -34,6 +34,7 @@
           <ul class="nav navbar-nav">
             <li class="{% block nav_user %}{% endblock %}"><a href="{% url 'user:index' %}">用户管理</a></li>
             <li class="{% block nav_asset %}{% endblock %}"><a href="{% url 'asset:index' %}">资产管理</a></li>
+            <li class="{% block nav_webanalysis %}{% endblock %}"><a href="{% url 'webanalysis:index' %}">web日志分析</a></li>
             <li>{% block li_create %}{% endblock %}</li>
             <li>{% block li_changepassword %}{% endblock %}</li>
           </ul>
@@ -59,7 +60,7 @@
     <script type="text/javascript" src="{% static 'sweetalert-1.0.1/dist/sweetalert.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'DataTables-1.10.15/media/js/jquery.dataTables.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'DataTables-1.10.15/media/js/dataTables.bootstrap.min.js' %}"></script>
-    <script src="{% static 'echart/echarts.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'echart/echarts.min.js' %}"></script>
     {% block scripts %}{% endblock %}
     <script type="text/javascript">
       jQuery(document).ready(function() {

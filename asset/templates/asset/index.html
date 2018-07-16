@@ -163,60 +163,64 @@ $('.btn-save-asset').on('click', function() {
 
 // 图形
 var chart_resource_option = {
-                title: {
-                    text: 'CPU,内存监控'
+    title : {
+        text: 'CPU,内存监控',
+        subtext: '',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'axis',
+        axisPointer : {
+            type : 'shadow'
+        }
+    },
+    legend: {
+        x: 'left',
+        orient : 'vertical',
+        data:['CPU','mem']
+    },
+    toolbox: {
+        show : true,
+        orient: 'vertical',
+        x: 'right',
+        y: 'center',
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : []
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+                {
+                    name:'CPU',
+                    type:'line',
+                    smooth: true,
+                    stack: 'CPU',
+                    data:[]
                 },
-                tooltip: {
-                    trigger: 'axis'
-                },
-                legend: {
-                    data:['CPU','mem']
-                },
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
-                },
-                toolbox: {
-                    show: true,
-                    feature: {
-                        dataZoom: {
-                            yAxisIndex: 'none'
-                        },
-                        dataView: {readOnly: false},
-                        magicType: {type: ['line', 'bar']},
-                        restore: {},
-                        saveAsImage: {}
-                    }
-                },
-                xAxis: {
-                    type: 'category',
-                    boundaryGap: false,
-                    data: []
-                },
-                yAxis: {
-                    type: 'value'
-                },
-                series: [
-
-                    {
-                        name:'CPU',
-                        type:'line',
-                        smooth: true,
-                        stack: 'CPU',
-                        data:[]
-                    },
-                    {
-                        name:'mem',
-                        type:'line',
-                        smooth: true,
-                        stack: 'mem',
-                        data:[]
-                    }
-                ]
-        };
-
+                {
+                    name:'mem',
+                    type:'line',
+                    smooth: true,
+                    stack: 'mem',
+                    data:[]
+                }
+            ]
+};
 
 
 function reload_resource_chart(id) {
