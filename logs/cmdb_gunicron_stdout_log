@@ -1,0 +1,406 @@
+[2018-07-22 12:23:54 +0800] [30757] [INFO] Starting gunicorn 19.9.0
+[2018-07-22 12:23:54 +0800] [30757] [INFO] Listening at: http://127.0.0.1:9000 (30757)
+[2018-07-22 12:23:54 +0800] [30757] [INFO] Using worker: sync
+[2018-07-22 12:23:54 +0800] [30761] [INFO] Booting worker with pid: 30761
+[2018-07-22 12:23:54 +0800] [30761] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 129, in init_process
+    self.load_wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 138, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 52, in load
+    return self.load_wsgiapp()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 41, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/util.py", line 350, in import_app
+    __import__(module)
+ModuleNotFoundError: No module named 'cmdb'
+[2018-07-22 12:23:54 +0800] [30761] [INFO] Worker exiting (pid: 30761)
+[2018-07-22 12:23:54 +0800] [30757] [INFO] Shutting down: Master
+[2018-07-22 12:23:54 +0800] [30757] [INFO] Reason: Worker failed to boot.
+[2018-07-22 12:23:55 +0800] [30763] [INFO] Starting gunicorn 19.9.0
+[2018-07-22 12:23:55 +0800] [30763] [INFO] Listening at: http://127.0.0.1:9000 (30763)
+[2018-07-22 12:23:55 +0800] [30763] [INFO] Using worker: sync
+[2018-07-22 12:23:55 +0800] [30766] [INFO] Booting worker with pid: 30766
+[2018-07-22 12:23:55 +0800] [30766] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 129, in init_process
+    self.load_wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 138, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 52, in load
+    return self.load_wsgiapp()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 41, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/util.py", line 350, in import_app
+    __import__(module)
+ModuleNotFoundError: No module named 'cmdb'
+[2018-07-22 12:23:55 +0800] [30766] [INFO] Worker exiting (pid: 30766)
+[2018-07-22 12:23:55 +0800] [30763] [INFO] Shutting down: Master
+[2018-07-22 12:23:55 +0800] [30763] [INFO] Reason: Worker failed to boot.
+[2018-07-22 12:23:58 +0800] [30768] [INFO] Starting gunicorn 19.9.0
+[2018-07-22 12:23:58 +0800] [30768] [INFO] Listening at: http://127.0.0.1:9000 (30768)
+[2018-07-22 12:23:58 +0800] [30768] [INFO] Using worker: sync
+[2018-07-22 12:23:58 +0800] [30771] [INFO] Booting worker with pid: 30771
+[2018-07-22 12:23:58 +0800] [30771] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 129, in init_process
+    self.load_wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 138, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 52, in load
+    return self.load_wsgiapp()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 41, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/util.py", line 350, in import_app
+    __import__(module)
+ModuleNotFoundError: No module named 'cmdb'
+[2018-07-22 12:23:58 +0800] [30771] [INFO] Worker exiting (pid: 30771)
+[2018-07-22 12:23:58 +0800] [30768] [INFO] Shutting down: Master
+[2018-07-22 12:23:58 +0800] [30768] [INFO] Reason: Worker failed to boot.
+[2018-07-22 12:24:01 +0800] [30774] [INFO] Starting gunicorn 19.9.0
+[2018-07-22 12:24:01 +0800] [30774] [INFO] Listening at: http://127.0.0.1:9000 (30774)
+[2018-07-22 12:24:01 +0800] [30774] [INFO] Using worker: sync
+[2018-07-22 12:24:01 +0800] [30777] [INFO] Booting worker with pid: 30777
+[2018-07-22 12:24:01 +0800] [30777] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 129, in init_process
+    self.load_wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 138, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 52, in load
+    return self.load_wsgiapp()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 41, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/util.py", line 350, in import_app
+    __import__(module)
+ModuleNotFoundError: No module named 'cmdb'
+[2018-07-22 12:24:01 +0800] [30777] [INFO] Worker exiting (pid: 30777)
+[2018-07-22 12:24:01 +0800] [30774] [INFO] Shutting down: Master
+[2018-07-22 12:24:01 +0800] [30774] [INFO] Reason: Worker failed to boot.
+[2018-07-22 12:25:11 +0800] [30891] [INFO] Starting gunicorn 19.9.0
+[2018-07-22 12:25:11 +0800] [30891] [INFO] Listening at: http://127.0.0.1:9000 (30891)
+[2018-07-22 12:25:11 +0800] [30891] [INFO] Using worker: sync
+[2018-07-22 12:25:11 +0800] [30896] [INFO] Booting worker with pid: 30896
+[2018-07-22 12:25:11 +0800] [30896] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 129, in init_process
+    self.load_wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 138, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 52, in load
+    return self.load_wsgiapp()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 41, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/util.py", line 350, in import_app
+    __import__(module)
+ModuleNotFoundError: No module named 'cmdb'
+[2018-07-22 12:25:11 +0800] [30896] [INFO] Worker exiting (pid: 30896)
+[2018-07-22 12:25:11 +0800] [30891] [INFO] Shutting down: Master
+[2018-07-22 12:25:11 +0800] [30891] [INFO] Reason: Worker failed to boot.
+[2018-07-22 12:25:12 +0800] [30897] [INFO] Starting gunicorn 19.9.0
+[2018-07-22 12:25:12 +0800] [30897] [INFO] Listening at: http://127.0.0.1:9000 (30897)
+[2018-07-22 12:25:12 +0800] [30897] [INFO] Using worker: sync
+[2018-07-22 12:25:12 +0800] [30900] [INFO] Booting worker with pid: 30900
+[2018-07-22 12:25:12 +0800] [30900] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 129, in init_process
+    self.load_wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 138, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 52, in load
+    return self.load_wsgiapp()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 41, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/util.py", line 350, in import_app
+    __import__(module)
+ModuleNotFoundError: No module named 'cmdb'
+[2018-07-22 12:25:12 +0800] [30900] [INFO] Worker exiting (pid: 30900)
+[2018-07-22 12:25:12 +0800] [30897] [INFO] Shutting down: Master
+[2018-07-22 12:25:12 +0800] [30897] [INFO] Reason: Worker failed to boot.
+[2018-07-22 12:25:14 +0800] [30901] [INFO] Starting gunicorn 19.9.0
+[2018-07-22 12:25:14 +0800] [30901] [INFO] Listening at: http://127.0.0.1:9000 (30901)
+[2018-07-22 12:25:14 +0800] [30901] [INFO] Using worker: sync
+[2018-07-22 12:25:14 +0800] [30905] [INFO] Booting worker with pid: 30905
+[2018-07-22 12:25:14 +0800] [30905] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 129, in init_process
+    self.load_wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 138, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 52, in load
+    return self.load_wsgiapp()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 41, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/util.py", line 350, in import_app
+    __import__(module)
+ModuleNotFoundError: No module named 'cmdb'
+[2018-07-22 12:25:14 +0800] [30905] [INFO] Worker exiting (pid: 30905)
+[2018-07-22 12:25:14 +0800] [30901] [INFO] Shutting down: Master
+[2018-07-22 12:25:14 +0800] [30901] [INFO] Reason: Worker failed to boot.
+[2018-07-22 12:25:18 +0800] [30908] [INFO] Starting gunicorn 19.9.0
+[2018-07-22 12:25:18 +0800] [30908] [INFO] Listening at: http://127.0.0.1:9000 (30908)
+[2018-07-22 12:25:18 +0800] [30908] [INFO] Using worker: sync
+[2018-07-22 12:25:18 +0800] [30911] [INFO] Booting worker with pid: 30911
+[2018-07-22 12:25:18 +0800] [30911] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 129, in init_process
+    self.load_wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 138, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 52, in load
+    return self.load_wsgiapp()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 41, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/util.py", line 350, in import_app
+    __import__(module)
+ModuleNotFoundError: No module named 'cmdb'
+[2018-07-22 12:25:18 +0800] [30911] [INFO] Worker exiting (pid: 30911)
+[2018-07-22 12:25:18 +0800] [30908] [INFO] Shutting down: Master
+[2018-07-22 12:25:18 +0800] [30908] [INFO] Reason: Worker failed to boot.
+[2018-07-22 12:26:48 +0800] [31024] [INFO] Starting gunicorn 19.9.0
+[2018-07-22 12:26:48 +0800] [31024] [INFO] Listening at: http://127.0.0.1:9000 (31024)
+[2018-07-22 12:26:48 +0800] [31024] [INFO] Using worker: sync
+[2018-07-22 12:26:48 +0800] [31027] [INFO] Booting worker with pid: 31027
+[2018-07-22 12:26:48 +0800] [31027] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 129, in init_process
+    self.load_wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 138, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 52, in load
+    return self.load_wsgiapp()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 41, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/util.py", line 350, in import_app
+    __import__(module)
+ModuleNotFoundError: No module named '/home/niko/cmdb/cmdb'
+[2018-07-22 12:26:48 +0800] [31027] [INFO] Worker exiting (pid: 31027)
+[2018-07-22 12:26:48 +0800] [31024] [INFO] Shutting down: Master
+[2018-07-22 12:26:48 +0800] [31024] [INFO] Reason: Worker failed to boot.
+[2018-07-22 12:26:49 +0800] [31029] [INFO] Starting gunicorn 19.9.0
+[2018-07-22 12:26:49 +0800] [31029] [INFO] Listening at: http://127.0.0.1:9000 (31029)
+[2018-07-22 12:26:49 +0800] [31029] [INFO] Using worker: sync
+[2018-07-22 12:26:49 +0800] [31032] [INFO] Booting worker with pid: 31032
+[2018-07-22 12:26:49 +0800] [31032] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 129, in init_process
+    self.load_wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 138, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 52, in load
+    return self.load_wsgiapp()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 41, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/util.py", line 350, in import_app
+    __import__(module)
+ModuleNotFoundError: No module named '/home/niko/cmdb/cmdb'
+[2018-07-22 12:26:49 +0800] [31032] [INFO] Worker exiting (pid: 31032)
+[2018-07-22 12:26:49 +0800] [31029] [INFO] Shutting down: Master
+[2018-07-22 12:26:49 +0800] [31029] [INFO] Reason: Worker failed to boot.
+[2018-07-22 12:26:51 +0800] [31035] [INFO] Starting gunicorn 19.9.0
+[2018-07-22 12:26:51 +0800] [31035] [INFO] Listening at: http://127.0.0.1:9000 (31035)
+[2018-07-22 12:26:51 +0800] [31035] [INFO] Using worker: sync
+[2018-07-22 12:26:51 +0800] [31038] [INFO] Booting worker with pid: 31038
+[2018-07-22 12:26:51 +0800] [31038] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 129, in init_process
+    self.load_wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 138, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 52, in load
+    return self.load_wsgiapp()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 41, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/util.py", line 350, in import_app
+    __import__(module)
+ModuleNotFoundError: No module named '/home/niko/cmdb/cmdb'
+[2018-07-22 12:26:51 +0800] [31038] [INFO] Worker exiting (pid: 31038)
+[2018-07-22 12:26:51 +0800] [31035] [INFO] Shutting down: Master
+[2018-07-22 12:26:51 +0800] [31035] [INFO] Reason: Worker failed to boot.
+[2018-07-22 12:26:55 +0800] [31040] [INFO] Starting gunicorn 19.9.0
+[2018-07-22 12:26:55 +0800] [31040] [INFO] Listening at: http://127.0.0.1:9000 (31040)
+[2018-07-22 12:26:55 +0800] [31040] [INFO] Using worker: sync
+[2018-07-22 12:26:55 +0800] [31043] [INFO] Booting worker with pid: 31043
+[2018-07-22 12:26:55 +0800] [31043] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 129, in init_process
+    self.load_wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 138, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 52, in load
+    return self.load_wsgiapp()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 41, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/util.py", line 350, in import_app
+    __import__(module)
+ModuleNotFoundError: No module named '/home/niko/cmdb/cmdb'
+[2018-07-22 12:26:55 +0800] [31043] [INFO] Worker exiting (pid: 31043)
+[2018-07-22 12:26:55 +0800] [31040] [INFO] Shutting down: Master
+[2018-07-22 12:26:55 +0800] [31040] [INFO] Reason: Worker failed to boot.
+[2018-07-22 13:37:43 +0800] [3062] [INFO] Starting gunicorn 19.9.0
+[2018-07-22 13:37:43 +0800] [3062] [INFO] Listening at: http://127.0.0.1:9000 (3062)
+[2018-07-22 13:37:43 +0800] [3062] [INFO] Using worker: sync
+[2018-07-22 13:37:43 +0800] [3066] [INFO] Booting worker with pid: 3066
+[2018-07-22 13:37:43 +0800] [3066] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 129, in init_process
+    self.load_wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 138, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 52, in load
+    return self.load_wsgiapp()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 41, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/util.py", line 350, in import_app
+    __import__(module)
+ModuleNotFoundError: No module named '/home/niko/cmdb/cmdb'
+[2018-07-22 13:37:43 +0800] [3066] [INFO] Worker exiting (pid: 3066)
+[2018-07-22 13:37:43 +0800] [3062] [INFO] Shutting down: Master
+[2018-07-22 13:37:43 +0800] [3062] [INFO] Reason: Worker failed to boot.
+[2018-07-22 13:37:45 +0800] [3068] [INFO] Starting gunicorn 19.9.0
+[2018-07-22 13:37:45 +0800] [3068] [INFO] Listening at: http://127.0.0.1:9000 (3068)
+[2018-07-22 13:37:45 +0800] [3068] [INFO] Using worker: sync
+[2018-07-22 13:37:45 +0800] [3073] [INFO] Booting worker with pid: 3073
+[2018-07-22 13:37:45 +0800] [3073] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 129, in init_process
+    self.load_wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 138, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 52, in load
+    return self.load_wsgiapp()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 41, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/util.py", line 350, in import_app
+    __import__(module)
+ModuleNotFoundError: No module named '/home/niko/cmdb/cmdb'
+[2018-07-22 13:37:45 +0800] [3073] [INFO] Worker exiting (pid: 3073)
+[2018-07-22 13:37:45 +0800] [3068] [INFO] Shutting down: Master
+[2018-07-22 13:37:45 +0800] [3068] [INFO] Reason: Worker failed to boot.
+[2018-07-22 13:37:47 +0800] [3077] [INFO] Starting gunicorn 19.9.0
+[2018-07-22 13:37:47 +0800] [3077] [INFO] Listening at: http://127.0.0.1:9000 (3077)
+[2018-07-22 13:37:47 +0800] [3077] [INFO] Using worker: sync
+[2018-07-22 13:37:47 +0800] [3080] [INFO] Booting worker with pid: 3080
+[2018-07-22 13:37:47 +0800] [3080] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 129, in init_process
+    self.load_wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 138, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 52, in load
+    return self.load_wsgiapp()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 41, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/util.py", line 350, in import_app
+    __import__(module)
+ModuleNotFoundError: No module named '/home/niko/cmdb/cmdb'
+[2018-07-22 13:37:47 +0800] [3080] [INFO] Worker exiting (pid: 3080)
+[2018-07-22 13:37:47 +0800] [3077] [INFO] Shutting down: Master
+[2018-07-22 13:37:47 +0800] [3077] [INFO] Reason: Worker failed to boot.
+[2018-07-22 13:37:50 +0800] [3084] [INFO] Starting gunicorn 19.9.0
+[2018-07-22 13:37:50 +0800] [3084] [INFO] Listening at: http://127.0.0.1:9000 (3084)
+[2018-07-22 13:37:50 +0800] [3084] [INFO] Using worker: sync
+[2018-07-22 13:37:50 +0800] [3087] [INFO] Booting worker with pid: 3087
+[2018-07-22 13:37:50 +0800] [3087] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 129, in init_process
+    self.load_wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/workers/base.py", line 138, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 52, in load
+    return self.load_wsgiapp()
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 41, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/usr/local/python36/lib/python3.6/site-packages/gunicorn/util.py", line 350, in import_app
+    __import__(module)
+ModuleNotFoundError: No module named '/home/niko/cmdb/cmdb'
+[2018-07-22 13:37:50 +0800] [3087] [INFO] Worker exiting (pid: 3087)
+[2018-07-22 13:37:50 +0800] [3084] [INFO] Shutting down: Master
+[2018-07-22 13:37:50 +0800] [3084] [INFO] Reason: Worker failed to boot.
+[2018-07-22 13:41:20 +0800] [3349] [INFO] Starting gunicorn 19.9.0
+[2018-07-22 13:41:20 +0800] [3349] [INFO] Listening at: http://127.0.0.1:9000 (3349)
+[2018-07-22 13:41:20 +0800] [3349] [INFO] Using worker: sync
+[2018-07-22 13:41:20 +0800] [3352] [INFO] Booting worker with pid: 3352
+[2018-07-22 14:18:06 +0800] [3349] [INFO] Handling signal: quit
+[2018-07-22 14:18:06 +0800] [3352] [INFO] Worker exiting (pid: 3352)
+['200', '206', '301', '304', '403', '404'] [{'name': '200', 'value': 49691}, {'name': '206', 'value': 32}, {'name': '301', 'value': 2}, {'name': '304', 'value': 7584}, {'name': '403', 'value': 1}, {'name': '404', 'value': 3858}]
+['2014-08-23 00:00:00', '2014-08-23 01:00:00', '2014-08-23 02:00:00', '2014-08-23 03:00:00', '2014-08-23 04:00:00', '2014-08-23 05:00:00', '2014-08-23 06:00:00', '2014-08-23 07:00:00', '2014-08-23 08:00:00', '2014-08-23 09:00:00', '2014-08-23 10:00:00', '2014-08-23 11:00:00', '2014-08-23 12:00:00', '2014-08-23 13:00:00', '2014-08-23 14:00:00', '2014-08-23 15:00:00', '2014-08-23 16:00:00', '2014-08-23 17:00:00', '2014-08-23 18:00:00', '2014-08-23 19:00:00', '2014-08-23 20:00:00', '2014-08-23 21:00:00', '2014-08-23 22:00:00', '2014-08-23 23:00:00'] [248, 160, 223, 114, 353, 133, 757, 2384, 2798, 2301, 4193, 3942, 1297, 3775, 1982, 2242, 3508, 3318, 1947, 2352, 7419, 9948, 4437, 1337]
+['200', '404'] [{'name': '200', 'value': 4}, {'name': '404', 'value': 6}]
+['2014-08-23 00:00:00'] [10]
+['200', '206', '301', '304', '403', '404'] [{'name': '200', 'value': 49691}, {'name': '206', 'value': 32}, {'name': '301', 'value': 2}, {'name': '304', 'value': 7584}, {'name': '403', 'value': 1}, {'name': '404', 'value': 3858}]
+['2014-08-23 00:00:00', '2014-08-23 01:00:00', '2014-08-23 02:00:00', '2014-08-23 03:00:00', '2014-08-23 04:00:00', '2014-08-23 05:00:00', '2014-08-23 06:00:00', '2014-08-23 07:00:00', '2014-08-23 08:00:00', '2014-08-23 09:00:00', '2014-08-23 10:00:00', '2014-08-23 11:00:00', '2014-08-23 12:00:00', '2014-08-23 13:00:00', '2014-08-23 14:00:00', '2014-08-23 15:00:00', '2014-08-23 16:00:00', '2014-08-23 17:00:00', '2014-08-23 18:00:00', '2014-08-23 19:00:00', '2014-08-23 20:00:00', '2014-08-23 21:00:00', '2014-08-23 22:00:00', '2014-08-23 23:00:00'] [248, 160, 223, 114, 353, 133, 757, 2384, 2798, 2301, 4193, 3942, 1297, 3775, 1982, 2242, 3508, 3318, 1947, 2352, 7419, 9948, 4437, 1337]
+[2018-07-22 14:18:06 +0800] [3349] [INFO] Shutting down: Master
+[2018-07-22 14:23:38 +0800] [7606] [INFO] Starting gunicorn 19.9.0
+[2018-07-22 14:23:38 +0800] [7606] [INFO] Listening at: http://127.0.0.1:9000 (7606)
+[2018-07-22 14:23:38 +0800] [7606] [INFO] Using worker: sync
+[2018-07-22 14:23:38 +0800] [7609] [INFO] Booting worker with pid: 7609
+[2018-07-22 15:00:33 +0800] [7606] [INFO] Handling signal: quit
+[2018-07-22 15:00:33 +0800] [7609] [INFO] Worker exiting (pid: 7609)
+['200', '206', '301', '304', '403', '404'] [{'name': '200', 'value': 49691}, {'name': '206', 'value': 32}, {'name': '301', 'value': 2}, {'name': '304', 'value': 7584}, {'name': '403', 'value': 1}, {'name': '404', 'value': 3858}]
+['2014-08-23 00:00:00', '2014-08-23 01:00:00', '2014-08-23 02:00:00', '2014-08-23 03:00:00', '2014-08-23 04:00:00', '2014-08-23 05:00:00', '2014-08-23 06:00:00', '2014-08-23 07:00:00', '2014-08-23 08:00:00', '2014-08-23 09:00:00', '2014-08-23 10:00:00', '2014-08-23 11:00:00', '2014-08-23 12:00:00', '2014-08-23 13:00:00', '2014-08-23 14:00:00', '2014-08-23 15:00:00', '2014-08-23 16:00:00', '2014-08-23 17:00:00', '2014-08-23 18:00:00', '2014-08-23 19:00:00', '2014-08-23 20:00:00', '2014-08-23 21:00:00', '2014-08-23 22:00:00', '2014-08-23 23:00:00'] [248, 160, 223, 114, 353, 133, 757, 2384, 2798, 2301, 4193, 3942, 1297, 3775, 1982, 2242, 3508, 3318, 1947, 2352, 7419, 9948, 4437, 1337]
+[2018-07-22 15:00:33 +0800] [7606] [INFO] Shutting down: Master

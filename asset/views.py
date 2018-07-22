@@ -56,7 +56,6 @@ def resource_ajax(request):
             xAxis.append(resource.created_time.strftime('%Y-%m-%d %H:%M'))
             cpu_datas.append(resource.cpu)
             mem_datas.append(resource.mem)
-
         return JsonResponse({'code' : 200, 'result' : {'xAxis' : xAxis, 'cpu_datas' : cpu_datas, 'mem_datas' : mem_datas}})
     except BaseException as e:
         return JsonResponse({'code' : 403, 'result' : []})

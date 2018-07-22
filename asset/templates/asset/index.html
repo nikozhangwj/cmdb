@@ -233,6 +233,7 @@ function reload_resource_chart(id) {
                 chart_resource_option['series'][1]['data'] = result['result']['mem_datas'];
                 // 使用刚指定的配置项和数据显示图表。
                 chart_resource.setOption(chart_resource_option);
+                console.log(chart_resource_option['xAxis']['data']);
             }
         }, 'json');
     }
