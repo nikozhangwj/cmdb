@@ -82,8 +82,8 @@ DATABASES = {
         'NAME': 'cmdb_niko2',
         'HOST': '127.0.0.1',
         'PORT': 3306 ,
-        'USER': 'root' ,
-        'PASSWORD': 'dfl^!G321' ,
+        'USER': 'niko' ,
+        'PASSWORD': 'niko123' ,
         'CHARSET': 'utf8',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
