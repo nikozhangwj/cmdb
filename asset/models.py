@@ -60,6 +60,7 @@ class Resource(models.Model):
     cpu = models.FloatField(null=False, default=0)
     mem = models.FloatField(null=False ,default=0)
     created_time = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
 
     @classmethod
     def create_obj(cls, ip, cpu, mem):

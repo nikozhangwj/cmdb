@@ -1,3 +1,3 @@
-localhost
-139.199.172.142 ansible_ssh_user=niko ansible_ssh_pass=Nikoray0910
-23.106.152.90 ansible_ssh_user=root ansible_ssh_pass=VG1q75Vz4hmO
+111.230.219.214 ansible_ssh_port=2235
+139.199.172.142 ansible_ssh_port=2235
+23.106.152.90 ansible_ssh_port=29959
